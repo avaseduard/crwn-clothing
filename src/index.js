@@ -1,13 +1,25 @@
+import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom'; // makes it possible to use the browser router from react router dom dependency; the App component is nested in the browser router
+import { UserProvider } from './contexts/user.context'; // the app component is nested in the userprovider component which allows it to access the user stored data anywhere
+import { ProductsProvider } from './contexts/products.context';
+import { CartProvider } from './contexts/cart.context';
+import './index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <UserProvider>
+        <ProductsProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </ProductsProvider>
+      </UserProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
