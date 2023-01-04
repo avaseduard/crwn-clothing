@@ -10,7 +10,7 @@ const App = () => {
     <Routes>
       <Route path='/' element={<Navigation />}>
         <Route index element={<Home />} />
-        <Route path='shop' element={<Shop />} />
+        <Route path='shop/*' element={<Shop />} />
         <Route path='auth' element={<Authentication />} />
         <Route path='checkout' element={<Checkout />} />
       </Route>
@@ -21,5 +21,6 @@ const App = () => {
 // Route enables one route
 // <Route path='/' element={<Home />} /> means render the Home element when the path "/" is matched
 // Index matches the '/' of the parent route; in this case we make the nav bar appear on every route
+// The /* in path means that there will be another path after that one
 
 export default App;

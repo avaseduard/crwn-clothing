@@ -25,7 +25,6 @@ export const UserProvider = ({ children }) => {
     // Returns a function that stops listening
     const unsubscribe = onAuthStateChangedListener(user => {
       // Set the user to null or an object, depending on what we receive from the auth (sign in or out)
-      console.log(user);
       // Call the function that creates an user entrance in the firestore database
       if (user) {
         createUserDocumentFromAuth(user);
