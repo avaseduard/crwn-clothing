@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useState } from 'react'
 // import { useContext } from 'react';
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
-} from '../../utils/firebase/firebase.utils';
-import FormInput from '../form-input/form-input.component';
-import Button from '../button/button.component';
+} from '../../utils/firebase/firebase.utils'
+import FormInput from '../form-input/form-input.component'
+import Button from '../button/button.component'
 // import { UserContext } from '../../contexts/user.context';
-import './sign-up-form.styles.scss';
+import { SignUpContainer } from './sign-up-form.styles'
 
 // Create an empty object with the default form values (empty strings)
 const defaultFormFields = {
@@ -15,69 +15,66 @@ const defaultFormFields = {
   email: '',
   password: '',
   confirmPassword: '',
-};
+}
 
 // Form component with sign up methods
 const SignUpForm = () => {
-  const [formFields, setFormFields] = useState(defaultFormFields);
-  const { displayName, email, password, confirmPassword } = formFields;
+  const [formFields, setFormFields] = useState(defaultFormFields)
+  const { displayName, email, password, confirmPassword } = formFields
 
   // // useContext gets us the value of UserContext which returns the currentUser and the setCurrentUser, but in the sign-in component we only need the setter function
   // const { setCurrentUser } = useContext(UserContext);
 
   // Reset form fields after submit
   const resetFormFields = () => {
-    setFormFields(defaultFormFields);
-  };
+    setFormFields(defaultFormFields)
+  }
 
   // Submit methods
   const handleSubmit = async event => {
-    event.preventDefault();
+    event.preventDefault()
 
     // Check if passwords match, alert and return if not
     if (password !== confirmPassword) {
-      alert('Please match your passwords');
-      return;
+      alert('Please match your passwords')
+      return
     }
 
     // Create user auth object with the received information from the below function which in turn triggers the google method and returns
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
+      const { user } = await createAuthUserWithEmailAndPassword(email, password)
 
       // // Run setCurrentUser from above (that's actually from the UserContext) whenever the user value comes back
       // setCurrentUser(user);
 
       // Below function called from firebase.utils which sends the userAuth and the displayName
-      await createUserDocumentFromAuth(user, { displayName });
+      await createUserDocumentFromAuth(user, { displayName })
 
       // Reset form fields after submit
-      resetFormFields();
+      resetFormFields()
     } catch (error) {
       // Alert if e-mail already exists
       if (error.code === 'auth/email-already-in-use') {
-        alert('Cannot create new account - email address already in use');
+        alert('Cannot create new account - email address already in use')
       } else {
         // Alert if anything else failed
-        console.error('User creation failed:', error);
+        console.error('User creation failed:', error)
       }
     }
-  };
+  }
 
   // Get the typed information from form fields
   const handleChange = event => {
     // When the user types something in the input field, we get the value and the key (name) from the event.target
-    const { name, value } = event.target;
+    const { name, value } = event.target
 
     // Set the formfields object by spreading it and then dinamically changing the [key], which in turn becomes displayname, email, etc. and give it the value from the input (by event.targer)
-    setFormFields({ ...formFields, [name]: value });
-  };
+    setFormFields({ ...formFields, [name]: value })
+  }
 
-  // Sign-in form
+  // Sign-up form
   return (
-    <div className='sign-up-container'>
+    <SignUpContainer>
       <h2>Don't have an account?</h2>
       <span>Sign up with email and password</span>
       <form onSubmit={handleSubmit}>
@@ -121,8 +118,8 @@ const SignUpForm = () => {
 
         <Button type='submit'>sign up</Button>
       </form>
-    </div>
-  );
-};
+    </SignUpContainer>
+  )
+}
 
-export default SignUpForm;
+export default SignUpForm

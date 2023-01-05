@@ -1,22 +1,16 @@
-import './form-input.styles.scss';
+import { FormInputLabel, Input, Group } from './form-input.styles'
 
 // Create the input html element using the props received from sign-up-form component
 const FormInput = ({ label, ...otherProps }) => {
   return (
-    <div className='group'>
-      <input className='form-input' {...otherProps} />
+    <Group>
+      <Input {...otherProps} />
       {/* If there's no label prop, don't render a label; when the user inputs a value, apply the shrink class */}
       {label && (
-        <label
-          className={`${
-            otherProps.value.length ? 'shrink' : ''
-          } form-input-label`}
-        >
-          {label}
-        </label>
+      <FormInputLabel shrink={otherProps.value.length}>{label}</FormInputLabel>
       )}
-    </div>
-  );
-};
+    </Group>
+  )
+}
 
-export default FormInput;
+export default FormInput
