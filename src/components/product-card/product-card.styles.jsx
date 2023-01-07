@@ -1,5 +1,10 @@
 import styled from 'styled-components'
 
+export const Name = styled.span`
+  // width: 90%;
+  margin-bottom: 15px;
+`
+
 export const ProductCardContainer = styled.div`
   width: 100%;
   display: flex;
@@ -48,9 +53,4 @@ export const Footer = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 18px;
-`
-
-export const Name = styled.span`
-  // width: 90%;
-  margin-bottom: 15px;
 `
