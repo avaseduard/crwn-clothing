@@ -1,9 +1,9 @@
 import { createContext, useState, useEffect, useReducer } from 'react' // allows the use of context storage
-
 import {
   onAuthStateChangedListener,
   createUserDocumentFromAuth,
 } from '../utils/firebase/firebase.utils'
+import { createAction } from '../utils/reducer/reducer.utils'
 
 // Build the context and export it through this function, to anywhere we need it; this is the actual value of the context
 export const UserContext = createContext({
@@ -47,7 +47,7 @@ export const UserProvider = ({ children }) => {
   console.log(currentUser)
   // Gets the user value and dispatches out the object with type and payload
   const setCurrentUser = user => {
-    dispatch({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user })
+    dispatch(createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user))
   }
 
   // // Use the usestate hook to pass the initial value of currentUser as null

@@ -1,9 +1,11 @@
 import { Fragment, useContext } from 'react'
 import { Outlet, Link } from 'react-router-dom'
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg'
-import { UserContext } from '../../contexts/user.context'
+// import { UserContext } from '../../contexts/user.context'
 import { CartContext } from '../../contexts/cart.context'
 import { signOutUser } from '../../utils/firebase/firebase.utils'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '../../store/user/user.selector'
 import CartIcon from '../../components/cart-icon/cart-icon.component'
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component'
 // import './navigation.styles.jsx';
@@ -16,9 +18,12 @@ import {
 
 // Navigation bar
 const Navigation = () => {
+  // Hook that we pass a selector function, which extracts of the value that we want from the whole redux store state object; every time the state changes (sign in or out), the currentUser changes and react rerenders the whole component
+  const currentUser = useSelector(selectCurrentUser)
+
   // Get the currentUser value from the UserContext context; the component rerenders every time the currentUser value changes; also getthe setCurrentUser function to use it below in our sign out functionality
   // const { currentUser, setCurrentUser } = useContext(UserContext);
-  const { currentUser } = useContext(UserContext)
+  // const { currentUser } = useContext(UserContext)
   // // The function is being called by the signout butto onclick and it logs out our user
   // const signOutHandler = async () => {
   //   // Get the null response (succes sign out) from signOutUser
