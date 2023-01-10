@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom' // makes it possible to use the browser router from react router dom dependency; the App component is nested in the browser router
 // import { UserProvider } from './contexts/user.context' // the app component is nested in the userprovider component which allows it to access the user stored data anywhere
-import { CategoriesProvider } from './contexts/categories.context'
+// import { CategoriesProvider } from './contexts/categories.context'
 import { CartProvider } from './contexts/cart.context'
 import { Provider } from 'react-redux' // the redux provider which wraps the whole app
 import { store } from './store/store' // the redux store which is being passed to the provider
@@ -16,11 +16,11 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         {/* <UserProvider> */}
-          <CategoriesProvider>
-            <CartProvider>
+          {/* <CategoriesProvider> */}
+            {/* <CartProvider> */}
               <App />
-            </CartProvider>
-          </CategoriesProvider>
+            {/* </CartProvider> */}
+          {/* </CategoriesProvider> */}
         {/* </UserProvider> */}
       </BrowserRouter>
     </Provider>

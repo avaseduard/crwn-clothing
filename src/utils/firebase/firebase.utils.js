@@ -17,6 +17,7 @@ import {
   writeBatch,
   query,
   getDocs,
+  QuerySnapshot,
 } from 'firebase/firestore' // instances we need for database get and set data
 
 // My web app's Firebase configuration (copied from firebase)
@@ -121,11 +122,8 @@ export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, 'categories')
 
   const q = query(collectionRef)
+
   const querySnapshot = await getDocs(q)
-  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data()
-    acc[title.toLowerCase()] = items
-    return acc
-  }, {})
-  return categoryMap
+  // Return the categories map as an array
+  return querySnapshot.docs.map(docSnapshot => docSnapshot.data())
 }
