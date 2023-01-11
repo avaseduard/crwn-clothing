@@ -7,22 +7,25 @@ import { BrowserRouter } from 'react-router-dom' // makes it possible to use the
 // import { CategoriesProvider } from './contexts/categories.context'
 import { CartProvider } from './contexts/cart.context'
 import { Provider } from 'react-redux' // the redux provider which wraps the whole app
-import { store } from './store/store' // the redux store which is being passed to the provider
+import { PersistGate } from 'redux-persist/lib/integration/react'
+import { store, persistor } from './store/store' // the redux store which is being passed to the provider
 import './index.scss'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        {/* <UserProvider> */}
+      <PersistGate persistor={persistor}>
+        <BrowserRouter>
+          {/* <UserProvider> */}
           {/* <CategoriesProvider> */}
-            {/* <CartProvider> */}
-              <App />
-            {/* </CartProvider> */}
+          {/* <CartProvider> */}
+          <App />
+          {/* </CartProvider> */}
           {/* </CategoriesProvider> */}
-        {/* </UserProvider> */}
-      </BrowserRouter>
+          {/* </UserProvider> */}
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 )
