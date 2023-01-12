@@ -2,7 +2,7 @@ import { createSelector } from 'reselect'
 
 const selectCategoryReducer = state => state.categories
 
-// Create a memoized selector; first argument is an arrray of input selectors, swecond argument is the output selector; it only runs when the categoriesSlice is different
+// Create a memoized selector; first argument is an arrray of input selectors, second argument is the output selector; it only runs when the categoriesSlice is different
 export const selectCategories = createSelector(
   [selectCategoryReducer],
   categoriesSlice => categoriesSlice.categories
@@ -17,4 +17,9 @@ export const selectCategoriesMap = createSelector(
       acc[title.toLowerCase()] = items
       return acc
     }, {})
+)
+
+export const selectCategoriesIsLoading = createSelector(
+  [selectCategoryReducer],
+  categoriesSlice => categoriesSlice.isLoading
 )
