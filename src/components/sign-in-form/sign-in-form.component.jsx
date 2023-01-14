@@ -1,14 +1,19 @@
 import { useState } from 'react'
-// import { useContext } from 'react';
-import {
-  signInWithGooglePopup,
-  createUserDocumentFromAuth,
-  signInAuthUserWithEmailAndPassword,
-} from '../../utils/firebase/firebase.utils'
+import { useDispatch } from 'react-redux'
 import FormInput from '../form-input/form-input.component'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component'
 import { SignInContainer, ButtonsContainer } from './sign-in-form.styles'
+import {
+  googleSignInStart,
+  emailSignInStart,
+} from '../../store/user/user.action'
 // import { UserContext } from '../../contexts/user.context';
+// import { useContext } from 'react';
+// import {
+//   signInWithGooglePopup,
+//   createUserDocumentFromAuth,
+//   signInAuthUserWithEmailAndPassword,
+// } from '../../utils/firebase/firebase.utils'
 
 // Create an empty object with the default form values (empty strings)
 const defaultFormFields = {
@@ -18,6 +23,7 @@ const defaultFormFields = {
 
 // Form component with sign up methods
 const SignInForm = () => {
+  const dispatch = useDispatch()
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
 
@@ -30,19 +36,19 @@ const SignInForm = () => {
   }
 
   const signInWithGoogle = async () => {
-    // Get the user data from the object returned by the firebase response
-    await signInWithGooglePopup()
+    // // Get the user data from the object returned by the firebase response
+    // await signInWithGooglePopup()
     // // Run setCurrentUser from above (that's actually from the UserContext) whenever the user value comes back
     // setCurrentUser(user)
+    dispatch(googleSignInStart())
   }
 
   // Submit methods
   const handleSubmit = async event => {
     event.preventDefault()
-
     // Create user auth object with the received information from the below function which in turn triggers the google method and returns
     try {
-      const { user } = await signInAuthUserWithEmailAndPassword(email, password)
+      dispatch(emailSignInStart(email, password))
       // // Run setCurrentUser from above (that's actually from the UserContext) whenever the user value comes back
       // setCurrentUser(user);
       // Reset form fields after submit

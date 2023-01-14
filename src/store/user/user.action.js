@@ -6,9 +6,8 @@ export const setCurrentUser = user =>
   createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user)
 
 // Called when the App mounts and creates an action which we have a saga that's listening for
-export const checkUserSession = () => {
+export const checkUserSession = () =>
   createAction(USER_ACTION_TYPES.CHECK_USER_SESSION)
-}
 
 export const googleSignInStart = () =>
   createAction(USER_ACTION_TYPES.GOOGLE_SIGN_IN_START)
