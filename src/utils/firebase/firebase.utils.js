@@ -50,12 +50,13 @@ export const createUserDocumentFromAuth = async (
   userAuth,
   additionalInformation = {}
 ) => {
+  // If the userAuth doesn't exist, return
   if (!userAuth) return
 
   // Get data from db, under collection users and the id from the userAuth
   const userDocRef = doc(db, 'users', userAuth.uid)
 
-  //Get the napshot of the db entrance
+  // Get the snapshot of the db entrance
   const userSnapshot = await getDoc(userDocRef)
 
   // If the user data doesn't exist, create it
@@ -75,7 +76,7 @@ export const createUserDocumentFromAuth = async (
       console.log('error creating user', error.message)
     }
   }
-  return userDocRef
+  return userSnapshot
 }
 
 //
@@ -96,6 +97,22 @@ export const signOutUser = async () => await signOut(auth)
 // Return what we get back from onAuthStateChanged which takes two parameters: the auth and a callback that we want to call every time the auth state changes, meaning when the user logs in or out
 export const onAuthStateChangedListener = callback =>
   onAuthStateChanged(auth, callback)
+
+// Check if our auth state has changed, i.e. if there is an auth that still exists
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    // User auth gives us the user value and once we have that we close the listener (unsubscribe) and then we resolve with the userAuth
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      userAuth => {
+        unsubscribe()
+        resolve(userAuth)
+      },
+      // Reject promise in case it fails to get the user
+      reject
+    )
+  })
+}
 
 // Create a new collection in firebase for our store categories and items
 export const addCollectionAndDocuments = async (

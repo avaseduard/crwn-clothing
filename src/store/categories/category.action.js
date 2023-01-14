@@ -14,13 +14,13 @@ export const fetchCategoriesSucces = categoriesArray =>
 export const fetchCategoriesFailed = error =>
   createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error)
 
-// Use redux thunk to asyncronously fetch the categoriesArray,
-export const fetchCategoriesAsync = () => async dispatch => {
-  dispatch(fetchCategoriesStart())
-  try {
-    const categoriesArray = await getCategoriesAndDocuments('categories')
-    dispatch(fetchCategoriesSucces(categoriesArray))
-  } catch (error) {
-    dispatch(fetchCategoriesFailed(error))
-  }
-}
+// // Use redux thunk to asyncronously fetch the categoriesArray; do not use if we fetch with saga
+// export const fetchCategoriesAsync = () => async dispatch => {
+//   dispatch(fetchCategoriesStart())
+//   try {
+//     const categoriesArray = await getCategoriesAndDocuments('categories')
+//     dispatch(fetchCategoriesSucces(categoriesArray))
+//   } catch (error) {
+//     dispatch(fetchCategoriesFailed(error))
+//   }
+// }
