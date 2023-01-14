@@ -1,13 +1,15 @@
 import { useState } from 'react'
-// import { useContext } from 'react';
+import { useDispatch } from 'react-redux'
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from '../../utils/firebase/firebase.utils'
 import FormInput from '../form-input/form-input.component'
 import Button from '../button/button.component'
-// import { UserContext } from '../../contexts/user.context';
+import { signUpStart } from '../../store/user/user.action'
 import { SignUpContainer } from './sign-up-form.styles'
+// import { useContext } from 'react';
+// import { UserContext } from '../../contexts/user.context';
 
 // Create an empty object with the default form values (empty strings)
 const defaultFormFields = {
@@ -21,6 +23,7 @@ const defaultFormFields = {
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { displayName, email, password, confirmPassword } = formFields
+  const dispatch = useDispatch()
 
   // // useContext gets us the value of UserContext which returns the currentUser and the setCurrentUser, but in the sign-in component we only need the setter function
   // const { setCurrentUser } = useContext(UserContext);
@@ -33,23 +36,19 @@ const SignUpForm = () => {
   // Submit methods
   const handleSubmit = async event => {
     event.preventDefault()
-
     // Check if passwords match, alert and return if not
     if (password !== confirmPassword) {
       alert('Please match your passwords')
       return
     }
-
     // Create user auth object with the received information from the below function which in turn triggers the google method and returns
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(email, password)
-
+      // const { user } = await createAuthUserWithEmailAndPassword(email, password)
       // // Run setCurrentUser from above (that's actually from the UserContext) whenever the user value comes back
       // setCurrentUser(user);
-
-      // Below function called from firebase.utils which sends the userAuth and the displayName
-      await createUserDocumentFromAuth(user, { displayName })
-
+      // // Below function called from firebase.utils which sends the userAuth and the displayName
+      // await createUserDocumentFromAuth(user, { displayName })
+      dispatch(signUpStart(email, password, displayName))
       // Reset form fields after submit
       resetFormFields()
     } catch (error) {
