@@ -1,28 +1,32 @@
 import { Fragment, useContext } from 'react'
 import { Outlet } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import CartIcon from '../../components/cart-icon/cart-icon.component'
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component'
-// import { CartContext } from '../../contexts/cart.context'
 import { selectCurrentUser } from '../../store/user/user.selector'
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg'
-import { signOutUser } from '../../utils/firebase/firebase.utils'
+import { signOutStart } from '../../store/user/user.action'
 import { selectIsCartOpen } from '../../store/cart/cart.selector'
-// import { UserContext } from '../../contexts/user.context'
-// import './navigation.styles.jsx';
 import {
   NavigationContainer,
   LogoContainer,
   NavLinks,
   NavLink,
 } from './navigation.styles'
+// import { signOutUser } from '../../utils/firebase/firebase.utils'
+// import { UserContext } from '../../contexts/user.context'
+// import { CartContext } from '../../contexts/cart.context'
+// import './navigation.styles.jsx';
 
 // Navigation bar
 const Navigation = () => {
+  const dispatch = useDispatch()
   // Hook that we pass a selector function, which extracts of the value that we want from the whole redux store state object; every time the state changes (sign in or out), the currentUser changes and react rerenders the whole component
   const currentUser = useSelector(selectCurrentUser)
 
   const isCartOpen = useSelector(selectIsCartOpen)
+
+  const signOutUser = () => dispatch(signOutStart())
 
   // Get the currentUser value from the UserContext context; the component rerenders every time the currentUser value changes; also getthe setCurrentUser function to use it below in our sign out functionality
   // const { currentUser, setCurrentUser } = useContext(UserContext);
