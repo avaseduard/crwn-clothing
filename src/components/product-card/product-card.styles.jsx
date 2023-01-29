@@ -47,7 +47,7 @@ export const ProductCardContainer = styled.div`
   }
 
   @media screen and (max-width: 767px) {
-    margin-bottom: 10px;
+    margin-bottom: 24px;
 
     button {
       display: block;
@@ -73,4 +73,8 @@ export const Footer = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 18px;
+
+  @media screen and (max-width: 767px) {
+    font-size: 16px;
+  }  
 `

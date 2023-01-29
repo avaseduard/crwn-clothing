@@ -75,11 +75,11 @@ const SignUpForm = () => {
   return (
     <SignUpContainer>
       <h2>Don't have an account?</h2>
-      <span>Sign up with email and password</span>
+      <span>sign up with email and password</span>
       <form onSubmit={handleSubmit}>
         {/* Use the FormInput component with props to crate html input */}
         <FormInput
-          label='Display name'
+          label='display name'
           type='text'
           required
           onChange={handleChange}
@@ -89,7 +89,7 @@ const SignUpForm = () => {
         {/* The value is passed not by the input, but by the andlechange function */}
 
         <FormInput
-          label='Email'
+          label='email'
           type='email'
           required
           onChange={handleChange}
@@ -98,7 +98,7 @@ const SignUpForm = () => {
         />
 
         <FormInput
-          label='Password'
+          label='password'
           type='password'
           required
           onChange={handleChange}
@@ -107,7 +107,7 @@ const SignUpForm = () => {
         />
 
         <FormInput
-          label='Confirm pasword'
+          label='confirm pasword'
           type='password'
           required
           onChange={handleChange}

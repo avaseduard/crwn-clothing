@@ -80,11 +80,11 @@ const SignInForm = () => {
   return (
     <SignInContainer>
       <h2>Already have an account?</h2>
-      <span>Sign in with email and password</span>
+      <span>sign in with email and password</span>
       <form onSubmit={handleSubmit}>
         {/* Use the FormInput component with props to create html input */}
         <FormInput
-          label='Email'
+          label='email'
           type='email'
           required
           onChange={handleChange}
@@ -94,7 +94,7 @@ const SignInForm = () => {
         {/* The value is passed not by the input, but by the handleChange function */}
 
         <FormInput
-          label='Password'
+          label='password'
           type='password'
           required
           onChange={handleChange}

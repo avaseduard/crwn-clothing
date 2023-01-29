@@ -46,5 +46,8 @@ export const Input = styled.input`
 export const Group = styled.div`
   position: relative;
   margin: 45px 0;
-  // letter-spacing: 0.3em;
+
+  @media screen and (max-width: 767px) {
+    margin: 20px 0;
+  }
 `
