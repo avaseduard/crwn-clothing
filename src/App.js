@@ -11,6 +11,7 @@ import Authentication from './routes/authentication/authentication.component'
 import Shop from './routes/shop/shop.component'
 import Checkout from './routes/checkout/checkout.component'
 import { checkUserSession } from './store/user/user.action'
+import { GlobalStyle } from './global.styles'
 
 const App = () => {
   // Dispatch is the method we get back from the useDispatch redux hook
