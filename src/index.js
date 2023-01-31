@@ -12,7 +12,7 @@ import { store, persistor } from './store/store' // the redux store which is bei
 import { Elements } from '@stripe/react-stripe-js'
 import { stripePromise } from './utils/stripe/stripe.utils'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
-import './index.scss'
+// import './index.scss'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
