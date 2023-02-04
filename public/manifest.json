@@ -1,6 +1,6 @@
 {
-  "short_name": "crwn clothing",
-  "name": "crwn clothing shop",
+  "short_name": "uDrone",
+  "name": "uDrone shop",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,13 +8,13 @@
       "type": "image/x-icon"
     },
     {
-      "src": "crwn-192x192.png",
+      "src": "uDrone-192x192.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any mascable"
     },
     {
-      "src": "crwn-512x512.png",
+      "src": "uDrone-512x512.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any mascable"

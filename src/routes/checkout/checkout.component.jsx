@@ -11,7 +11,6 @@ import PaymentForm from '../../components/payment-form/payment-form.component'
 import './checkout.styles.scss'
 
 const Checkout = () => {
-  // const { cartItems, cartTotal } = useContext(CartContext)
   const cartItems = useSelector(selectCartItems)
   const cartTotal = useSelector(selectCartTotal)
 
