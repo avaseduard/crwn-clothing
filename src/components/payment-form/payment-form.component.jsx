@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { selectCartTotal } from '../../store/cart/cart.selector'
@@ -63,7 +63,7 @@ const PaymentForm = () => {
     <PaymentFormContainer>
       <FormContainer onSubmit={paymentHandler}>
         <h2>credit card payment:</h2>
-        <CardElement />
+        {/* <CardElement /> */}
         {/* If payment is in process, disable the pay now button */}
         <PaymentButton
           buttonType={BUTTON_TYPE_CLASSES.inverted}

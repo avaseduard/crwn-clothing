@@ -1,23 +1,30 @@
-// import { useContext } from 'react'
-// import { CartContext } from '../../contexts/cart.context'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Button from '../button/button.component'
 import CartItem from '../cart-item/cart-item.component'
-import { selectCartItems } from '../../store/cart/cart.selector'
+import {
+  selectCartItems,
+  selectIsCartOpen,
+} from '../../store/cart/cart.selector'
 import {
   CartDropdownContainer,
   EmptyMessage,
   CartItems,
 } from './cart-dropdown.styles'
 
+import { setIsCartOpen } from '../../store/cart/cart.action'
+
 const CartDropdown = () => {
-  // const { cartItems } = useContext(CartContext)
+  const dispatch = useDispatch()
   const cartItems = useSelector(selectCartItems)
+  const isCartOpen = useSelector(selectIsCartOpen)
 
   // With the useNavigate hook we navigate to a specific route with a click
   const navigate = useNavigate()
   const goToCheckoutHandler = () => {
+    // Collapse the dropdown cart
+    dispatch(setIsCartOpen(!isCartOpen))
+    // Navigate to checkout
     navigate('/checkout')
   }
 
