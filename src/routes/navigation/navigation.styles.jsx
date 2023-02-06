@@ -27,14 +27,14 @@ export const LogoContainer = styled(Link)`
 `
 
 export const NavLinks = styled.div`
-  width: 50%;
+  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
 
   @media screen and (max-width: 767px) {
-    width: 80%;
+    width: 100%;
   }
 `
 

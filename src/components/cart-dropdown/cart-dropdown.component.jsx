@@ -18,36 +18,33 @@ import OutsideClickHandler from 'react-outside-click-handler'
 const CartDropdown = () => {
   const dispatch = useDispatch()
   const cartItems = useSelector(selectCartItems)
-  const isCartOpen = useSelector(selectIsCartOpen)
+  let isCartOpen = useSelector(selectIsCartOpen)
+
+  const toggleIsCartOpen = () => dispatch(setIsCartOpen(!isCartOpen))
 
   // With the useNavigate hook we navigate to a specific route with a click
   const navigate = useNavigate()
   const goToCheckoutHandler = () => {
     // Collapse the dropdown cart
-    dispatch(setIsCartOpen(!isCartOpen))
+    // dispatch(setIsCartOpen(!isCartOpen))
+    toggleIsCartOpen()
     // Navigate to checkout
     navigate('/checkout')
   }
 
   return (
-    <CartDropdownContainer>
-      <CartItems>
-        {cartItems.length ? (
-          cartItems.map(item => <CartItem key={item.id} cartItem={item} />)
-        ) : (
-          <EmptyMessage>Your cart is empty</EmptyMessage>
-        )}
-      </CartItems>
-      <div id='root'>
-        <OutsideClickHandler
-          onOutsideClick={() => {
-            dispatch(setIsCartOpen(!isCartOpen))
-          }}
-        >
-          <Button onClick={goToCheckoutHandler}>go to checkout</Button>
-        </OutsideClickHandler>
-      </div>
-    </CartDropdownContainer>
+    <OutsideClickHandler onOutsideClick={toggleIsCartOpen}>
+      <CartDropdownContainer>
+        <CartItems>
+          {cartItems.length ? (
+            cartItems.map(item => <CartItem key={item.id} cartItem={item} />)
+          ) : (
+            <EmptyMessage>Your cart is empty</EmptyMessage>
+          )}
+        </CartItems>
+        <Button onClick={goToCheckoutHandler}>go to checkout</Button>
+      </CartDropdownContainer>
+    </OutsideClickHandler>
   )
 }
 
