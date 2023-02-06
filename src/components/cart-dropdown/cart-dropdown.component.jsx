@@ -13,6 +13,7 @@ import {
 } from './cart-dropdown.styles'
 
 import { setIsCartOpen } from '../../store/cart/cart.action'
+import OutsideClickHandler from 'react-outside-click-handler'
 
 const CartDropdown = () => {
   const dispatch = useDispatch()
@@ -37,7 +38,15 @@ const CartDropdown = () => {
           <EmptyMessage>Your cart is empty</EmptyMessage>
         )}
       </CartItems>
-      <Button onClick={goToCheckoutHandler}>go to checkout</Button>
+      <div id='root'>
+        <OutsideClickHandler
+          onOutsideClick={() => {
+            dispatch(setIsCartOpen(!isCartOpen))
+          }}
+        >
+          <Button onClick={goToCheckoutHandler}>go to checkout</Button>
+        </OutsideClickHandler>
+      </div>
     </CartDropdownContainer>
   )
 }

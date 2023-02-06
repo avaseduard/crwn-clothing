@@ -18,6 +18,11 @@ export const CartDropdownContainer = styled.div`
   right: 50px;
   z-index: 5;
 
+  #root > div {
+    display: flex;
+    justify-content: center;
+  }
+
   ${BaseButton}, ${GoogleSignInButton}, ${InvertedButton} {
     margin-top: auto;
   }
