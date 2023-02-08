@@ -1,4 +1,4 @@
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import ProductCard from '../product-card/product-card.component'
 import {
   CategoryPreviewContainer,
@@ -19,7 +19,9 @@ const CategoryPreview = ({ title, products }) => {
         {products
           .filter((_, idx) => idx < 4)
           .map(product => (
-            <ProductCard key={product.id} product={product} />
+            <Link to={title.concat('/', product.name)}>
+              <ProductCard key={product.id} product={product} />
+            </Link>
           ))}
       </Preview>
     </CategoryPreviewContainer>

@@ -26,7 +26,6 @@ const CartDropdown = () => {
   const navigate = useNavigate()
   const goToCheckoutHandler = () => {
     // Collapse the dropdown cart
-    // dispatch(setIsCartOpen(!isCartOpen))
     toggleIsCartOpen()
     // Navigate to checkout
     navigate('/checkout')
