@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app' // creates an app instance in firebase
+import { initializeApp } from 'firebase/app' // creates an app instance in firebase based on a config
 import {
   getAuth,
   signInWithPopup,
@@ -17,33 +17,37 @@ import {
   writeBatch,
   query,
   getDocs,
-  QuerySnapshot,
 } from 'firebase/firestore' // instances we need for database get and set data
 
-// My web app's Firebase configuration (copied from firebase)
+// My web app's firebase configuration (copied from firebase when the app is created)
 const firebaseConfig = {
-  apiKey: 'AIzaSyDA7esDCw0f0YVEDTH2_O5uvDcgK9Tq-Og',
-  authDomain: 'crwn-clothing-db-4ae53.firebaseapp.com',
-  projectId: 'crwn-clothing-db-4ae53',
-  storageBucket: 'crwn-clothing-db-4ae53.appspot.com',
-  messagingSenderId: '664232966870',
-  appId: '1:664232966870:web:5bbfbfe2b0cbc1a76aa777',
+  apiKey: 'AIzaSyAfrJjsGV2GOXMHqg82vTO8yeMMx9gjBn8',
+  authDomain: 'udrone-shop-db.firebaseapp.com',
+  projectId: 'udrone-shop-db',
+  storageBucket: 'udrone-shop-db.appspot.com',
+  messagingSenderId: '805119239816',
+  appId: '1:805119239816:web:b94efdc4f09a134f7fa13d',
 }
 
 // Initialize firebase (copied from firebase)
 const firebaseApp = initializeApp(firebaseConfig)
 
-// Setting up the firebase to our specific situation
+// Get a provider instance based on the googleauthprovider class
 const googleProvider = new GoogleAuthProvider()
+
+// Configure the provider with rules; we just want to select the account when someone interacts with the provider
 googleProvider.setCustomParameters({
   prompt: 'select_account',
 })
 
+// Create an auth with getauth method
 export const auth = getAuth()
+
+// Pass the auth and provider to the signinwithpopup
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
 
-// Setting up the database for our app
-export const db = getFirestore() // our actual database
+// Instantiate our actual database
+export const db = getFirestore()
 
 // Creating an user entrance in the database (additional information is the displayName object)
 export const createUserDocumentFromAuth = async (
@@ -52,19 +56,17 @@ export const createUserDocumentFromAuth = async (
 ) => {
   // If the userAuth doesn't exist, return
   if (!userAuth) return
-
-  // Get data from db, under collection users and the id from the userAuth
+  // Get data from db, under collection users and the user id from the userAuth
   const userDocRef = doc(db, 'users', userAuth.uid)
-
-  // Get the snapshot of the db entrance
+  // Get the snapshot (data) of the user's db entrance
   const userSnapshot = await getDoc(userDocRef)
-
   // If the user data doesn't exist, create it
   if (!userSnapshot.exists()) {
-    const { displayName, email } = userAuth // get the name and email from the user authentication
+    // Get the name and email from the user auth
+    const { displayName, email } = userAuth
+    // Get the date so we know when the user was created
     const createdAt = new Date()
-
-    // This is how we set that data to firebase, in an object; the additional information is the displayName (in a destructured object)
+    // Set that data to firebase, in an object; the additional information is the displayName (in a destructured object)
     try {
       await setDoc(userDocRef, {
         displayName,
@@ -76,16 +78,18 @@ export const createUserDocumentFromAuth = async (
       console.log('error creating user', error.message)
     }
   }
+  // If the user exists, just return the userSnapshot
   return userSnapshot
 }
 
-//
+// Create user with email & password using the firebase auth native provider
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  // Exit the function if we do not have an email or password
   if (!email || !password) return
   return await createUserWithEmailAndPassword(auth, email, password)
 }
 
-//
+//Sign in already existing user with email and password
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return
   return await signInWithEmailAndPassword(auth, email, password)
@@ -123,7 +127,6 @@ export const addCollectionAndDocuments = async (
   const collectionRef = collection(db, collectionKey)
   // Create a batch in the database using the method provided by firebase
   const batch = writeBatch(db)
-
   // Loop through our array of objects and make a docref for each title (hats, sneakers, etc.)
   objectsToAdd.forEach(object => {
     const docRef = doc(collectionRef, object.title.toLowerCase())

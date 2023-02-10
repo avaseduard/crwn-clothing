@@ -7,13 +7,6 @@ import {
   googleSignInStart,
   emailSignInStart,
 } from '../../store/user/user.action'
-// import { UserContext } from '../../contexts/user.context';
-// import { useContext } from 'react';
-// import {
-//   signInWithGooglePopup,
-//   createUserDocumentFromAuth,
-//   signInAuthUserWithEmailAndPassword,
-// } from '../../utils/firebase/firebase.utils'
 
 // Create an empty object with the default form values (empty strings)
 const defaultFormFields = {
@@ -27,19 +20,12 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
 
-  // // useContext gets us the value of UserContext which returns the currentUser and the setCurrentUser, but in the sign-in component we only need the setter function
-  // const { setCurrentUser } = useContext(UserContext);
-
   // Reset form fields after submit
   const resetFormFields = () => {
     setFormFields(defaultFormFields)
   }
 
   const signInWithGoogle = async () => {
-    // // Get the user data from the object returned by the firebase response
-    // await signInWithGooglePopup()
-    // // Run setCurrentUser from above (that's actually from the UserContext) whenever the user value comes back
-    // setCurrentUser(user)
     dispatch(googleSignInStart())
   }
 
@@ -49,8 +35,6 @@ const SignInForm = () => {
     // Create user auth object with the received information from the below function which in turn triggers the google method and returns
     try {
       dispatch(emailSignInStart(email, password))
-      // // Run setCurrentUser from above (that's actually from the UserContext) whenever the user value comes back
-      // setCurrentUser(user);
       // Reset form fields after submit
       resetFormFields()
     } catch (error) {
@@ -71,7 +55,6 @@ const SignInForm = () => {
   const handleChange = event => {
     // When the user types something in the input field, we get the value and the key (name) from the event.target
     const { name, value } = event.target
-
     // Set the formfields object by spreading it and then dinamically changing the [key], which in turn becomes displayname, email, etc. and give it the value from the input (by event.targer)
     setFormFields({ ...formFields, [name]: value })
   }
@@ -92,7 +75,6 @@ const SignInForm = () => {
           value={email}
         />
         {/* The value is passed not by the input, but by the handleChange function */}
-
         <FormInput
           label='password'
           type='password'

@@ -12,7 +12,6 @@ import './category.styles.scss'
 const Category = () => {
   const { category } = useParams() // get the category from shop to define below
   const categoriesMap = useSelector(selectCategoriesMap)
-  console.log(categoriesMap)
   const isLoading = useSelector(selectCategoriesIsLoading)
   const [products, setProducts] = useState(categoriesMap[category])
 

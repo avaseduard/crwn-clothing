@@ -28,7 +28,6 @@ export function* getSnapshotFromUserAuth(userAuth, additionalDetails) {
     )
     // Extract the id from userSnapshot and add it to userSnapshot.data
     yield put(signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }))
-    console.log(userSnapshot.data())
   } catch (error) {
     yield put(signInFailed(error))
   }
@@ -50,7 +49,7 @@ export function* isUserAuthenticated() {
 // Sign in with google pop up
 export function* signInWithGoogle() {
   try {
-    // Trigger google sign in pop up, take auth object, pull of the user
+    // Trigger google sign in popup, take auth object, pluck of the user off it
     const { user } = yield call(signInWithGooglePopup)
     // Run user through getSnapshot
     yield call(getSnapshotFromUserAuth, user)
