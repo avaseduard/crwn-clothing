@@ -27,7 +27,7 @@ const SignUpForm = () => {
     event.preventDefault()
     // Check if passwords match, alert and return if not
     if (password !== confirmPassword) {
-      alert('Please match your passwords')
+      alert('Sign up failed! Please match your passwords.')
       return
     }
     // Create user auth object with the received information from the below function which in turn triggers the google method and returns

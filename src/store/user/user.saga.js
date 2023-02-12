@@ -53,8 +53,17 @@ export function* signInWithGoogle() {
     const { user } = yield call(signInWithGooglePopup)
     // Run user through getSnapshot
     yield call(getSnapshotFromUserAuth, user)
+    // Alert user if login succeded
+    alert('Sign in succes. Welcome!')
   } catch (error) {
     yield put(signInFailed(error))
+    // Alert user if log in failed
+    switch (error.code) {
+      case 'auth/popup-closed-by-user':
+        alert('Sign in with google failed! Please try again.')
+      default:
+        console.log(error)
+    }
   }
 }
 
@@ -66,8 +75,21 @@ export function* signInWithEmail({ payload: { email, password } }) {
       password
     )
     yield call(getSnapshotFromUserAuth, user)
+    // Alert user if login succeded
+    alert('Sign in succes. Welcome!')
   } catch (error) {
     yield put(signInFailed(error))
+    // Alert user if log in failed
+    switch (error.code) {
+      case 'auth/user-not-found':
+        alert('Log in failed! No user associated with this email adress.')
+        break
+      case 'auth/wrong-password':
+        alert('Log in failed! Incorrect password for this email address.')
+        break
+      default:
+        console.log(error)
+    }
   }
 }
 
@@ -79,8 +101,21 @@ export function* signUp({ payload: { email, password, displayName } }) {
       password
     )
     yield put(signUpSuccess(user, { displayName }))
+    // Alert user if login succeded
+    alert('Sign up and sign in succes. Welcome!')
   } catch (error) {
     yield put(signUpFailed(error))
+    // Alert user if sign up failed
+    switch (error.code) {
+      case 'auth/email-already-in-use':
+        alert('Sign up failed! Email address already in use.')
+        break
+      case 'auth/invalid-email':
+        alert('Sign up failed! Email address is invalid.')
+        break
+      default:
+        console.log(error.code)
+    }
   }
 }
 

@@ -38,16 +38,7 @@ const SignInForm = () => {
       // Reset form fields after submit
       resetFormFields()
     } catch (error) {
-      switch (error.code) {
-        case 'auth/user-not-found':
-          alert('no user assciated with this email')
-          break
-        case 'auth/wrong-password':
-          alert('incorrect password for this email')
-          break
-        default:
-          console.log(error)
-      }
+      console.log(error)
     }
   }
 
