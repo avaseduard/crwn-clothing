@@ -126,7 +126,7 @@ export function* signInAfterSignUp({ payload: { user, additionalDetails } }) {
 export function* signOut() {
   try {
     yield call(signOutUser)
-    yield call(signOutSuccess)
+    yield put(signOutSuccess())
   } catch (error) {
     yield put(signOutFailed(error))
   }
