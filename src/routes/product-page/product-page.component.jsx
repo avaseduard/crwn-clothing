@@ -1,30 +1,65 @@
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
-import { selectCategories } from '../../store/categories/category.selector'
-import './product-page.styles.scss'
+import { selectCategoriesMap } from '../../store/categories/category.selector'
+import './product-page.styles.jsx'
+import Button, {
+  BUTTON_TYPE_CLASSES,
+} from '../../components/button/button.component'
+import { addItemToCart } from '../../store/cart/cart.action'
+import { selectCartItems } from '../../store/cart/cart.selector'
+import {
+  ProductBuyingContainer,
+  ProductCategory,
+  ProductDescription,
+  ProductImageContainer,
+  ProductName,
+  ProductPrice,
+} from './product-page.styles.jsx'
 
 const ProductPage = () => {
+  const dispatch = useDispatch()
+  const cartItems = useSelector(selectCartItems)
   // Bring the product database
-  const categoriesMap = useSelector(selectCategories)
+  const categoriesMap = useSelector(selectCategoriesMap)
   // Get the path and use it to define the identifiers we need to find the product we want to render
   let { pathname } = useLocation()
   const categoryTitle =
-    pathname.split('/')[2].charAt(0).toUpperCase() +
-    pathname.split('/')[2].slice(1)
+    pathname.split('/')[2].charAt(0) + pathname.split('/')[2].slice(1)
   const productName = pathname.split('/')[3].replaceAll('%20', ' ')
 
   // Find the product object and pluck off the values we want to render
-  const result = categoriesMap.find(({ title }) => title === categoryTitle)
-  const product = result.items.find(({ name }) => name === productName)
-  const { price, imageUrl, description } = product
+  const product = categoriesMap[categoryTitle].find(
+    item => item.name === productName
+  )
+  const { name, price, imageUrl, description } = product
+  const addProductToCart = () => dispatch(addItemToCart(cartItems, product))
 
   return (
     <div>
-      <h1>{productName}</h1>
-      <h2>in {categoryTitle.toLocaleLowerCase()}</h2>
-      <img src={imageUrl} alt={productName} />
-      <p>Price: {price}€</p>
-      <p>Description: {description}</p>
+      <ProductName>{productName} drone</ProductName>
+      <ProductCategory>
+        <span>{categoryTitle}</span> class
+      </ProductCategory>
+      <hr />
+      <ProductImageContainer>
+        <img src={imageUrl} alt={productName} />
+      </ProductImageContainer>
+      <hr />
+      <ProductBuyingContainer>
+        <ProductPrice>
+          <span>Our price: </span>€ {price}
+        </ProductPrice>
+        <Button
+          buttonType={BUTTON_TYPE_CLASSES.inverted}
+          onClick={addProductToCart}
+        >
+          add to cart
+        </Button>
+      </ProductBuyingContainer>
+      <ProductDescription>
+        <span>Why you'll love it: </span>
+        {description}
+      </ProductDescription>
     </div>
   )
 }

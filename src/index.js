@@ -5,7 +5,6 @@ import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom' // makes it possible to use the browser router from react router dom dependency; the App component is nested in the browser router
 // import { UserProvider } from './contexts/user.context' // the app component is nested in the userprovider component which allows it to access the user stored data anywhere
 // import { CategoriesProvider } from './contexts/categories.context'
-import { CartProvider } from './contexts/cart.context'
 import { Provider } from 'react-redux' // the redux provider which wraps the whole app
 import { PersistGate } from 'redux-persist/lib/integration/react'
 import { store, persistor } from './store/store' // the redux store which is being passed to the provider

@@ -5,35 +5,35 @@ import { DirectoryContainer } from './directory.styles'
 const categories = [
   {
     id: 1,
-    title: 'hats',
-    imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
-    route: 'shop/hats'
+    title: 'advanced',
+    imageUrl: 'https://i.ibb.co/MhrnQ4x/advanced.png',
+    route: 'shop/advanced',
   },
   {
     id: 2,
-    title: 'jackets',
-    imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
-    route: 'shop/jackets'
+    title: 'cinema',
+    imageUrl: 'https://i.ibb.co/zhP55V4/cinema.png',
+    route: 'shop/cinema',
   },
   {
     id: 3,
-    title: 'sneakers',
-    imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
-    route: 'shop/sneakers'
+    title: 'enterprise',
+    imageUrl: 'https://i.ibb.co/2KKnHNM/enterprise.png',
+    route: 'shop/enterprise',
   },
   {
     id: 4,
-    title: 'womens',
-    imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
-    route: 'shop/womens'
+    title: 'mini',
+    imageUrl: 'https://i.ibb.co/y5B3d9T/mini.png',
+    route: 'shop/mini',
   },
   {
     id: 5,
-    title: 'mens',
-    imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
-    route: 'shop/mens'
+    title: 'toys',
+    imageUrl: 'https://i.ibb.co/CsfX7fL/toys.png',
+    route: 'shop/toys',
   },
-];
+]
 
 // Home page container for all categories
 const Directory = () => {

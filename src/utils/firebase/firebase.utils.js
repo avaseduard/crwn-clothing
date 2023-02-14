@@ -18,6 +18,7 @@ import {
   query,
   getDocs,
 } from 'firebase/firestore' // instances we need for database get and set data
+import SHOP_DATA from '../../shop-data'
 
 // My web app's firebase configuration (copied from firebase when the app is created)
 const firebaseConfig = {
@@ -118,14 +119,14 @@ export const getCurrentUser = () => {
   })
 }
 
-// Create a new collection in firebase for our store categories and items
+// Create a new collection in firebase for our store categories and items; they key is the firebase collection
 export const addCollectionAndDocuments = async (
   collectionKey,
   objectsToAdd
 ) => {
-  // Create collection reference inside our database (same as the one we use for users)
+  // Create collection reference inside the database we already have
   const collectionRef = collection(db, collectionKey)
-  // Create a batch in the database using the method provided by firebase
+  // Create a batch in the database using the instance provided by firebase
   const batch = writeBatch(db)
   // Loop through our array of objects and make a docref for each title (hats, sneakers, etc.)
   objectsToAdd.forEach(object => {
@@ -137,13 +138,16 @@ export const addCollectionAndDocuments = async (
   console.log('done')
 }
 
+// Run the above function only once to set the whole shop data to firebase
+// addCollectionAndDocuments('categories', SHOP_DATA)
+
 // Pull the items for website from firestore database
 export const getCategoriesAndDocuments = async () => {
+  // Get the firebase collection reference from the database
   const collectionRef = collection(db, 'categories')
-
+  // Get a snapshop of the collection reference
   const q = query(collectionRef)
-
   const querySnapshot = await getDocs(q)
-  // Return the categories map as an array
+  // Build the categories map as an array
   return querySnapshot.docs.map(docSnapshot => docSnapshot.data())
 }

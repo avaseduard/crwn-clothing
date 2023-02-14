@@ -42,6 +42,7 @@ const Navigation = () => {
         {/* if iscartopen is true, it returns the component, if not, it doesn't return anything; the component is always true */}
         {isCartOpen && <CartDropdown />}
       </NavigationContainer>
+      <hr />
       <Outlet />
     </Fragment>
   )
