@@ -14,7 +14,7 @@ const Shop = () => {
 
   // Run only once the function that gets our items from the firestore database
   useEffect(() => {
-    dispatch(fetchCategoriesStart()) // when we use saga
+    dispatch(fetchCategoriesStart())
   }, [])
 
   return (

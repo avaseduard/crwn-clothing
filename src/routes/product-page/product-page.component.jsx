@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { selectCategoriesMap } from '../../store/categories/category.selector'
-import './product-page.styles.jsx'
 import Button, {
   BUTTON_TYPE_CLASSES,
 } from '../../components/button/button.component'
@@ -18,9 +17,13 @@ import {
 
 const ProductPage = () => {
   const dispatch = useDispatch()
+
+  // Bring the cart items to be able to add to cart
   const cartItems = useSelector(selectCartItems)
+
   // Bring the product database
   const categoriesMap = useSelector(selectCategoriesMap)
+
   // Get the path and use it to define the identifiers we need to find the product we want to render
   let { pathname } = useLocation()
   const categoryTitle =
@@ -31,7 +34,9 @@ const ProductPage = () => {
   const product = categoriesMap[categoryTitle].find(
     item => item.name === productName
   )
-  const { name, price, imageUrl, description } = product
+  const { price, imageUrl, description } = product
+
+  // Add item to cart handler
   const addProductToCart = () => dispatch(addItemToCart(cartItems, product))
 
   return (

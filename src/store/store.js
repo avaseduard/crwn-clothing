@@ -12,7 +12,7 @@ import { rootReducer } from './root-reducer'
 const persistConfig = {
   key: 'root',
   storage: storage,
-  whitelist: ['cart'], // blacklist or whitelist - array of keys we (don't) want to set to local storage form our reducers; in this case we need only the cart
+  whitelist: ['cart', 'categories'], //  array of keys we want to set to local storage from our reducers; the rest will be ignored
 }
 
 // Create the Saga middleware
