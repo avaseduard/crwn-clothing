@@ -7,8 +7,6 @@ import ProductPage from '../product-page/product-page.component'
 import { fetchCategoriesStart } from '../../store/categories/category.action'
 import './shop.styles.scss'
 
-
-//
 const Shop = () => {
   const dispatch = useDispatch()
 
