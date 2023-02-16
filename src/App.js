@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import { checkUserSession } from './store/user/user.action'
 import { GlobalStyle } from './global.styles'
 import Spinner from './components/spinner/spinner.component'
+import ProtectedRoute from './utils/protected-route/protected-route'
 
 const Home = lazy(() => import('./routes/home/home.component'))
 const Navigation = lazy(() =>
@@ -32,7 +33,9 @@ const App = () => {
         <Route path='/' element={<Navigation />}>
           <Route index element={<Home />} />
           <Route path='shop/*' element={<Shop />} />
-          <Route path='auth' element={<Authentication />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path='auth' element={<Authentication />} />
+          </Route>
           <Route path='checkout' element={<Checkout />} />
         </Route>
       </Routes>
