@@ -29,6 +29,7 @@ const Navigation = () => {
           <Logo className='logo' />
         </LogoContainer>
         <NavLinks>
+          <NavLink to='/search'><i className='fas fa-search'></i></NavLink>
           <NavLink to='/shop'>shop</NavLink>
           {currentUser ? (
             <NavLink as='span' onClick={signOutUser}>

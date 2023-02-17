@@ -6,6 +6,7 @@ import { GlobalStyle } from './global.styles'
 import Spinner from './components/spinner/spinner.component'
 import ProtectedRoute from './utils/protected-route/protected-route.utils'
 import NotFound from './routes/not-found/not-found.component'
+import SearchBox from './routes/search/search.component'
 
 const Home = lazy(() => import('./routes/home/home.component'))
 const Navigation = lazy(() =>
@@ -33,6 +34,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Navigation />}>
           <Route index element={<Home />} />
+          <Route path='search' element={<SearchBox />} />
           <Route path='shop/*' element={<Shop />} />
           <Route element={<ProtectedRoute />}>
             <Route path='auth' element={<Authentication />} />

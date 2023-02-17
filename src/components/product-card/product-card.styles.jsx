@@ -11,6 +11,12 @@ export const ProductCardContainer = styled.div`
   height: 350px;
   align-items: center;
   position: relative;
+  padding: 0 5px 10px 5px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 2px 2px 12px gray;
+  // width: auto;
+  // margin-bottom: 16px;
 
   img {
     width: 100%;
@@ -76,5 +82,5 @@ export const Footer = styled.div`
 
   @media screen and (max-width: 767px) {
     font-size: 16px;
-  }  
+  }
 `
