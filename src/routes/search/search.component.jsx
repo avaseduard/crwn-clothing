@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { selectCategoriesMap } from '../../store/categories/category.selector'
 import ProductCard from '../../components/product-card/product-card.component'
 import './search.styles.scss'
@@ -59,7 +60,7 @@ const SearchBox = () => {
             </div>
             <div className='InputContainer'>
               <input
-                placeholder="It just can't be pizza..."
+                placeholder="buzz us if you can't find what you need..."
                 onChange={event =>
                   setSearch(event.target.value.toLocaleLowerCase())
                 }
@@ -70,7 +71,9 @@ const SearchBox = () => {
       </div>
       <div className='product-card-container'>
         {filteredCategoryMap.map(product => (
-          <ProductCard key={product.id} product={product} />
+          <Link to='../shop/{product.name}'>
+            <ProductCard key={product.id} product={product} />
+          </Link>
         ))}
       </div>
     </div>
