@@ -4,14 +4,14 @@ import { selectCartItems } from '../../store/cart/cart.selector'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component'
 import { ProductCardContainer, Footer, Name } from './product-card.styles'
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onClick }) => {
   const dispatch = useDispatch()
   const { name, price, imageUrl } = product
   const addProductToCart = () => dispatch(addItemToCart(cartItems, product))
   const cartItems = useSelector(selectCartItems)
 
   return (
-    <ProductCardContainer>
+    <ProductCardContainer onClick={onClick}>
       <img src={imageUrl} alt={name} />
       <Footer>
         <Name>{name}</Name>
@@ -19,7 +19,10 @@ const ProductCard = ({ product }) => {
       </Footer>
       <Button
         buttonType={BUTTON_TYPE_CLASSES.inverted}
-        onClick={addProductToCart}
+        onClick={e => {
+          e.stopPropagation()
+          addProductToCart()
+        }}
       >
         add to cart
       </Button>

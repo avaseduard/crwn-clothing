@@ -1,39 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { selectCategoriesMap } from '../../store/categories/category.selector'
+import { useNavigate } from 'react-router-dom'
+import { selectShopData } from '../../store/categories/category.selector'
 import ProductCard from '../../components/product-card/product-card.component'
 import './search.styles.scss'
 
 const SearchBox = () => {
-  const categoryMap = useSelector(selectCategoriesMap)
+  const shopData = useSelector(selectShopData)
+  const navigate = useNavigate()
   const [search, setSearch] = useState('')
-  // console.log(categoryMap)
-  // console.log(search)
+  const [products, setProducts] = useState([])
 
-  // const a = Object.keys(categoryMap).filter(b => b != '')
-  // console.log(a)
-  // const b = Object.values(categoryMap).map(c => c.filter(d => d.id !== ''))
-  // console.log(b)
-  const filteredCategoryMap = Object.values(categoryMap)
-    .flat(1)
-    .filter(items => items.name.toLocaleLowerCase().includes(search))
-  // filteredCategoryMap.map(d => console.log(d.price))
-
-  // const filteredDrone = Object.values(categoryMap).map(
-  //   category =>
-  //     category.map(
-  //       product => product.filter(drone => drone.name.includes(search))
-  // .toLocaleLowerCase().includes(search))
-  // )
-  // filter(
-  //   product => product.name.toLowerCase().includes(search)
-  // product.filter(drone => drone.name.includes(search))
-  // )
-  // )
-  // console.log(filteredDrone)
-
-  // onChange={event => setSearch(event.target.value.toLocaleLowerCase())}
+  useEffect(() => {
+    const filteredData = shopData.map(({ items, ...rest }) => ({
+      ...rest,
+      items: items.filter(({ name }) =>
+        name.toLocaleLowerCase().includes(search)
+      ),
+    }))
+    setProducts(filteredData)
+  }, [search, shopData])
 
   return (
     <div className='search-page-container'>
@@ -70,10 +56,20 @@ const SearchBox = () => {
         </div>
       </div>
       <div className='product-card-container'>
-        {filteredCategoryMap.map(product => (
-          <Link to='../shop/{product.name}'>
-            <ProductCard key={product.id} product={product} />
-          </Link>
+        {products.map(product => (
+          <>
+            {product.items.map(item => {
+              return (
+                <ProductCard
+                  onClick={() =>
+                    navigate(`../shop/${product.title}/${item.name}`)
+                  }
+                  key={item.id}
+                  product={item}
+                />
+              )
+            })}
+          </>
         ))}
       </div>
     </div>
