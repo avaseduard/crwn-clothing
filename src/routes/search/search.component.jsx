@@ -5,9 +5,9 @@ import { selectShopData } from '../../store/categories/category.selector'
 import ProductCard from '../../components/product-card/product-card.component'
 import './search.styles.scss'
 
-const SearchBox = () => {
-  const shopData = useSelector(selectShopData)
+const Search = () => {
   const navigate = useNavigate()
+  const shopData = useSelector(selectShopData)
   const [search, setSearch] = useState('')
   const [products, setProducts] = useState([])
 
@@ -56,24 +56,22 @@ const SearchBox = () => {
         </div>
       </div>
       <div className='product-card-container'>
-        {products.map(product => (
-          <>
-            {product.items.map(item => {
-              return (
-                <ProductCard
-                  onClick={() =>
-                    navigate(`../shop/${product.title}/${item.name}`)
-                  }
-                  key={item.id}
-                  product={item}
-                />
-              )
-            })}
-          </>
-        ))}
+        {products.map(category =>
+          category.items.map(product => {
+            return (
+              <ProductCard
+                onClick={() =>
+                  navigate(`../shop/${category.title}/${product.name}`)
+                }
+                key={product.id}
+                product={product}
+              />
+            )
+          })
+        )}
       </div>
     </div>
   )
 }
 
-export default SearchBox
+export default Search

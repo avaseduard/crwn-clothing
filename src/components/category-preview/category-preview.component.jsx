@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ProductCard from '../product-card/product-card.component'
 import {
   CategoryPreviewContainer,
@@ -7,6 +7,8 @@ import {
 } from './category-preview.styles.jsx'
 
 const CategoryPreview = ({ title, products }) => {
+  const navigate = useNavigate()
+
   return (
     <CategoryPreviewContainer>
       <h2>
@@ -19,9 +21,14 @@ const CategoryPreview = ({ title, products }) => {
         {products
           .filter((_, idx) => idx < 4)
           .map(product => (
-            <Link to={title.concat('/', product.name)}>
-              <ProductCard key={product.id} product={product} />
-            </Link>
+            // <Link to={title.concat('/', product.name)}>
+            //   <ProductCard key={product.id} product={product} />
+            // </Link>
+            <ProductCard
+              onClick={() => navigate(`${title}/${product.name}`)}
+              key={product.id}
+              product={product}
+            />
           ))}
       </Preview>
     </CategoryPreviewContainer>
