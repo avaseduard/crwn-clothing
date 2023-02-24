@@ -8,10 +8,10 @@ import { rootReducer } from './root-reducer'
 // import { loggerMiddleware } from './middleware/logger'
 // import thunk from 'redux-thunk'
 
-// Configuration object for the redux persist
+// Configuration object for the redux persist; storage (shorthand) is browser's local storage
 const persistConfig = {
   key: 'root',
-  storage: storage,
+  storage,
   whitelist: ['cart', 'categories'], //  array of keys we want to set to local storage from our reducers; the rest will be ignored
 }
 

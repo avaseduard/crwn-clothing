@@ -26,6 +26,5 @@ export const selectCategoriesIsLoading = createSelector(
 
 export const selectShopData = createSelector(
   [selectCategories],
-  categories => categories,
-  {}
+  categories => categories
 )
