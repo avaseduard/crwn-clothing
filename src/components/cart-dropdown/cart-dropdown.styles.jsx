@@ -24,7 +24,7 @@ export const CartDropdownContainer = styled.div`
 
   @media screen and (max-width: 767px) {
     top: 60px;
-    right: 30px;
+    right: 20px;
     padding: 10px;
 
     ${BaseButton}, ${GoogleSignInButton}, ${InvertedButton} {

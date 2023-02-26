@@ -10,7 +10,6 @@ export const NavigationContainer = styled.div`
 
   @media screen and (max-width: 767px) {
     height: 60px;
-    padding: 10px 20px;
     margin-bottom: 20px;
   }
 `
@@ -21,7 +20,7 @@ export const LogoContainer = styled(Link)`
   padding: 0 0 0 10px;
 
   @media screen and (max-width: 767px) {
-    width: 50px;
+    width: 30px;
     padding: 0;
   }
 `
@@ -41,4 +40,8 @@ export const NavLinks = styled.div`
 export const NavLink = styled(Link)`
   padding: 10px 15px;
   cursor: pointer;
+
+  @media screen and (max-width: 767px) {
+    padding: 10px;
+  }
 `

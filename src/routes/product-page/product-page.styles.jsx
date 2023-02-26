@@ -16,6 +16,10 @@ export const ProductCategory = styled.h2`
 export const ProductImageContainer = styled.div`
   display: flex;
   justify-content: center;
+
+  img {
+    width: 100%
+  }
 `
 
 export const ProductBuyingContainer = styled.div`

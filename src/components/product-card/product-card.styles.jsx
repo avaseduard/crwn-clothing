@@ -15,8 +15,6 @@ export const ProductCardContainer = styled.div`
   border-radius: 5px;
   overflow: hidden;
   box-shadow: 2px 2px 12px gray;
-  // width: auto;
-  // margin-bottom: 16px;
 
   img {
     width: 100%;
@@ -53,11 +51,13 @@ export const ProductCardContainer = styled.div`
   }
 
   @media screen and (max-width: 767px) {
-    margin-bottom: 24px;
+    height: 240px;
+    margin-bottom: 10px;
 
     button {
+      top: 150px;
       display: block;
-      opacity: 0.9;
+      opacity: 0.5;
       min-width: unset;
       padding: 0 10px;
     }

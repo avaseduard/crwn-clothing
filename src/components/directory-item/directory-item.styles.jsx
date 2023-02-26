@@ -31,6 +31,20 @@ export const Body = styled.div`
     font-weight: lighter;
     font-size: 16px;
   }
+
+  @media screen and (max-width: 767px) {
+    height: auto;
+    width: auto;
+    padding: 10px;
+
+    h2 {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
 `
 
 export const DirectoryItemContainer = styled.div`
@@ -43,6 +57,10 @@ export const DirectoryItemContainer = styled.div`
   border: 1px solid black;
   margin: 0 7.5px 15px;
   overflow: hidden;
+
+  @media screen and (max-width: 767px) {
+    height: 170px;
+  }
 
   &:hover {
     cursor: pointer;
@@ -62,9 +80,5 @@ export const DirectoryItemContainer = styled.div`
 
   &:last-child {
     margin-left: 7.5px;
-  }
-
-  @media screen and (max-width: 767px) {
-    height: 200px;
   }
 `
