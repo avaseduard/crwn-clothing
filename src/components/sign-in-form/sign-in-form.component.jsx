@@ -24,7 +24,18 @@ const SignInForm = () => {
   }
 
   const signInWithGoogle = async () => {
-    await signInWithGooglePopup()
+    try {
+      await signInWithGooglePopup()
+    } catch (error) {
+      // Alert user if log in failed
+      switch (error.code) {
+        case 'auth/popup-closed-by-user':
+          alert('Sign in with google failed! Please try again.')
+          break
+        default:
+          console.error(error)
+      }
+    }
   }
 
   // Submit methods
@@ -36,7 +47,17 @@ const SignInForm = () => {
       // Reset form fields after submit
       resetFormFields()
     } catch (error) {
-      console.log(error)
+      // Alert user if log in failed
+      switch (error.code) {
+        case 'auth/user-not-found':
+          alert('Log in failed! No user associated with this email adress.')
+          break
+        case 'auth/wrong-password':
+          alert('Log in failed! Incorrect password for this email address.')
+          break
+        default:
+          console.error(error)
+      }
     }
   }
 

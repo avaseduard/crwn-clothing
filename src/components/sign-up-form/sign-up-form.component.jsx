@@ -39,12 +39,19 @@ const SignUpForm = () => {
       // Reset form fields after submit
       resetFormFields()
     } catch (error) {
-      // Alert if e-mail already exists
-      if (error.code === 'auth/email-already-in-use') {
-        alert('Cannot create new account - email address already in use')
-      } else {
-        // Alert if anything else failed
-        console.error('User creation failed:', error)
+      // Alert user if sign up failed
+      switch (error.code) {
+        case 'auth/email-already-in-use':
+          alert('Sign up failed! Email address already in use.')
+          break
+        case 'auth/invalid-email':
+          alert('Sign up failed! Email address is invalid.')
+          break
+        case 'auth/weak-password':
+          alert('Sign up failed! Password is too weak. Insert at least 6 characters.')
+          break
+        default:
+          console.log(error.code)
       }
     }
   }
