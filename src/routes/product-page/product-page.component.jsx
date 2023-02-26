@@ -4,8 +4,7 @@ import { selectCategoriesMap } from '../../store/categories/category.selector'
 import Button, {
   BUTTON_TYPE_CLASSES,
 } from '../../components/button/button.component'
-import { addItemToCart } from '../../store/cart/cart.action'
-import { selectCartItems } from '../../store/cart/cart.selector'
+import { addItemToCart } from '../../store/cart/cart.reducer'
 import {
   ProductBuyingContainer,
   ProductCategory,
@@ -17,9 +16,6 @@ import {
 
 const ProductPage = () => {
   const dispatch = useDispatch()
-
-  // Bring the cart items to be able to add to cart
-  const cartItems = useSelector(selectCartItems)
 
   // Bring the product database
   const categoriesMap = useSelector(selectCategoriesMap)
@@ -37,7 +33,7 @@ const ProductPage = () => {
   const { price, imageUrl, description } = product
 
   // Add item to cart handler
-  const addProductToCart = () => dispatch(addItemToCart(cartItems, product))
+  const addProductToCart = () => dispatch(addItemToCart(product))
 
   return (
     <div>

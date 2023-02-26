@@ -1,19 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import OutsideClickHandler from 'react-outside-click-handler'
 import Button from '../button/button.component'
 import CartItem from '../cart-item/cart-item.component'
 import {
   selectCartItems,
   selectIsCartOpen,
 } from '../../store/cart/cart.selector'
+import { setIsCartOpen } from '../../store/cart/cart.reducer'
 import {
   CartDropdownContainer,
   EmptyMessage,
   CartItems,
 } from './cart-dropdown.styles'
-
-import { setIsCartOpen } from '../../store/cart/cart.action'
-import OutsideClickHandler from 'react-outside-click-handler'
 
 const CartDropdown = () => {
   const dispatch = useDispatch()

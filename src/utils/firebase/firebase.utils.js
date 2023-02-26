@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app' // creates an app instance in firebase based on a config
 import {
+  signInWithRedirect,
   getAuth,
   signInWithPopup,
   GoogleAuthProvider,
@@ -18,7 +19,6 @@ import {
   query,
   getDocs,
 } from 'firebase/firestore' // instances we need for database get and set data
-import SHOP_DATA from '../../shop-data'
 
 // My web app's firebase configuration (copied from firebase when the app is created)
 const firebaseConfig = {
@@ -46,9 +46,42 @@ export const auth = getAuth()
 
 // Pass the auth and provider to the signinwithpopup
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider)
 
 // Instantiate our actual database
 export const db = getFirestore()
+
+// Create a new collection in firebase for our store categories and items; they key is the firebase collection
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd,
+  field
+) => {
+  // Create collection reference inside the database we already have
+  const collectionRef = collection(db, collectionKey)
+  // Create a batch in the database using the instance provided by firebase
+  const batch = writeBatch(db)
+  // Loop through our array of objects and make a docref for each title (category)
+  objectsToAdd.forEach(object => {
+    const docRef = doc(collectionRef, object.title.toLowerCase())
+    // Set the value of that collection to the object (meaning the items)
+    batch.set(docRef, object)
+  })
+  await batch.commit()
+  console.log('done')
+}
+
+// Pull the items for website from firestore database
+export const getCategoriesAndDocuments = async () => {
+  // Get the firebase collection reference from the database
+  const collectionRef = collection(db, 'categories')
+  // Get a snapshop of the collection reference
+  const q = query(collectionRef)
+  const querySnapshot = await getDocs(q)
+  // Build the categories map as an array
+  return querySnapshot.docs.map(docSnapshot => docSnapshot.data())
+}
 
 // Creating an user entrance in the database (additional information is the displayName object)
 export const createUserDocumentFromAuth = async (
@@ -80,7 +113,7 @@ export const createUserDocumentFromAuth = async (
     }
   }
   // If the user exists, just return the userSnapshot
-  return userSnapshot
+  return userDocRef
 }
 
 // Create user with email & password using the firebase auth native provider
@@ -103,51 +136,5 @@ export const signOutUser = async () => await signOut(auth)
 export const onAuthStateChangedListener = callback =>
   onAuthStateChanged(auth, callback)
 
-// Check if our auth state has changed, i.e. if there is an auth that still exists
-export const getCurrentUser = () => {
-  return new Promise((resolve, reject) => {
-    // User auth gives us the user value and once we have that we close the listener (unsubscribe) and then we resolve with the userAuth
-    const unsubscribe = onAuthStateChanged(
-      auth,
-      userAuth => {
-        unsubscribe()
-        resolve(userAuth)
-      },
-      // Reject promise in case it fails to get the user
-      reject
-    )
-  })
-}
-
-// Create a new collection in firebase for our store categories and items; they key is the firebase collection
-export const addCollectionAndDocuments = async (
-  collectionKey,
-  objectsToAdd
-) => {
-  // Create collection reference inside the database we already have
-  const collectionRef = collection(db, collectionKey)
-  // Create a batch in the database using the instance provided by firebase
-  const batch = writeBatch(db)
-  // Loop through our array of objects and make a docref for each title (hats, sneakers, etc.)
-  objectsToAdd.forEach(object => {
-    const docRef = doc(collectionRef, object.title.toLowerCase())
-    // Set the value of that collection to the object (meaning the items)
-    batch.set(docRef, object)
-  })
-  await batch.commit()
-  console.log('done')
-}
-
-// Run the above function only once to set the whole shop data to firebase
+// Run the below function only once to set the whole shop data to firebase
 // addCollectionAndDocuments('categories', SHOP_DATA)
-
-// Pull the items for website from firestore database
-export const getCategoriesAndDocuments = async () => {
-  // Get the firebase collection reference from the database
-  const collectionRef = collection(db, 'categories')
-  // Get a snapshop of the collection reference
-  const q = query(collectionRef)
-  const querySnapshot = await getDocs(q)
-  // Build the categories map as an array
-  return querySnapshot.docs.map(docSnapshot => docSnapshot.data())
-}

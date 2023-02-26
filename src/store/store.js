@@ -1,48 +1,30 @@
-import { compose, createStore, applyMiddleware } from 'redux'
+import { configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // local storage default
 import logger from 'redux-logger'
-import createSagaMiddleware from '@redux-saga/core'
-import { rootSaga } from './root-saga'
 import { rootReducer } from './root-reducer'
-// import { loggerMiddleware } from './middleware/logger'
-// import thunk from 'redux-thunk'
 
-// Configuration object for the redux persist; storage (shorthand) is browser's local storage
+// Configuration object for the redux persist; storage (shorthand) on browser's local storage; whitelist the cart and categories, not the user
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['cart', 'categories'], //  array of keys we want to set to local storage from our reducers; the rest will be ignored
+  whitelist: ['cart', 'categories'],
 }
-
-// Create the Saga middleware
-const sagaMiddleware = createSagaMiddleware()
 
 // It takes two values: the config object and the reducer we want to save
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-// Middlewares is a library helper that runs before the action hits the reducer; it is part of the logger's functionality and needs the below boilerplate to run; we can either choose logger if we want to use redux's or loggerMiddleWare if we want to run ours; the logger runs only while we are in 'development' and not when we are in 'production'
-const middleWares = [
-  process.env.NODE_ENV !== 'production' && logger,
-  sagaMiddleware,
-  // thunk,
-].filter(Boolean)
+// Enable the logger only in develop mode
+const middleWares = [process.env.NODE_ENV !== 'production' && logger].filter(
+  Boolean
+)
 
-// Enable the use of redux devtools chrome extension while in 'production'
-const composeEnhancer =
-  (process.env.NODE_ENV !== 'production' &&
-    window &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-  compose
-
-const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares))
-
-// Create the redux store using the rootReducer and logger to help see the state; insetad of rootReducer use the persistedReducer from local storage
-// export const store = createStore(rootReducer, undefined, composedEnhancers)
-export const store = createStore(persistedReducer, undefined, composedEnhancers)
-
-// Run the Saga with the rootSaga
-sagaMiddleware.run(rootSaga)
+// Create redux toolkit store; pass the persisted reducer (based on the root reducer) and the middlewares (default middleware and logger and cancel the serializable check to throw the error from firebase userImpl constructor)
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({ serializableCheck: false }).concat(middleWares),
+})
 
 // The persistor is what we pass to our redux PersistGate which wraps the App in index.js
 export const persistor = persistStore(store)

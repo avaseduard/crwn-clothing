@@ -1,12 +1,16 @@
 import { useEffect, lazy, Suspense } from 'react'
 import { useDispatch } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
-import { checkUserSession } from './store/user/user.action'
 import { GlobalStyle } from './global.styles'
+import { setCurrentUser } from './store/user/user.reducer'
 import Spinner from './components/spinner/spinner.component'
 import ProtectedRoute from './utils/protected-route/protected-route.utils'
 import NotFound from './routes/not-found/not-found.component'
 import Search from './routes/search/search.component'
+import {
+  createUserDocumentFromAuth,
+  onAuthStateChangedListener,
+} from './utils/firebase/firebase.utils'
 
 const Home = lazy(() => import('./routes/home/home.component'))
 const Navigation = lazy(() =>
@@ -19,13 +23,17 @@ const Shop = lazy(() => import('./routes/shop/shop.component'))
 const Checkout = lazy(() => import('./routes/checkout/checkout.component'))
 
 const App = () => {
-  // Dispatch is the method we get back from the useDispatch redux hook
   const dispatch = useDispatch()
 
-  // Runs only when the component mounts
   useEffect(() => {
-    // Dispatch the checkUserSession when the app mounts
-    dispatch(checkUserSession())
+    const unsubscribe = onAuthStateChangedListener(user => {
+      if (user) {
+        createUserDocumentFromAuth(user)
+      }
+      console.log(setCurrentUser(user))
+      dispatch(setCurrentUser(user))
+    })
+    return unsubscribe
   }, [])
 
   return (

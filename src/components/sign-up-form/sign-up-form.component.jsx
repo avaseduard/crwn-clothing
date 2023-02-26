@@ -1,8 +1,10 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
 import FormInput from '../form-input/form-input.component'
 import Button from '../button/button.component'
-import { signUpStart } from '../../store/user/user.action'
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocumentFromAuth,
+} from '../../utils/firebase/firebase.utils'
 import { SignUpContainer } from './sign-up-form.styles'
 
 // Create an empty object with the default form values (empty strings)
@@ -15,9 +17,9 @@ const defaultFormFields = {
 
 // Form component with sign up methods
 const SignUpForm = () => {
-  const dispatch = useDispatch()
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { displayName, email, password, confirmPassword } = formFields
+
   // Reset form fields after submit
   const resetFormFields = () => {
     setFormFields(defaultFormFields)
@@ -32,7 +34,8 @@ const SignUpForm = () => {
     }
     // Create user auth object with the received information from the below function which in turn triggers the google method and returns
     try {
-      dispatch(signUpStart(email, password, displayName))
+      const { user } = await createAuthUserWithEmailAndPassword(email, password)
+      await createUserDocumentFromAuth(user, { displayName })
       // Reset form fields after submit
       resetFormFields()
     } catch (error) {

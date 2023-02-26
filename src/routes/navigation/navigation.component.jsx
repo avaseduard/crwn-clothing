@@ -1,11 +1,11 @@
 import { Fragment } from 'react'
 import { Outlet } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import CartIcon from '../../components/cart-icon/cart-icon.component'
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown.component'
 import { selectCurrentUser } from '../../store/user/user.selector'
 import { ReactComponent as Logo } from '../../assets/logo.svg'
-import { signOutStart } from '../../store/user/user.action'
+import { signOutUser } from '../../utils/firebase/firebase.utils'
 import { selectIsCartOpen } from '../../store/cart/cart.selector'
 import {
   NavigationContainer,
@@ -16,11 +16,9 @@ import {
 
 // Navigation bar
 const Navigation = () => {
-  const dispatch = useDispatch()
   // Hook that we pass a selector function, which extracts of the value that we want from the whole redux store state object; every time the state changes (sign in or out), the currentUser changes and react rerenders the whole component
   const currentUser = useSelector(selectCurrentUser)
   const isCartOpen = useSelector(selectIsCartOpen)
-  const signOutUser = () => dispatch(signOutStart())
 
   return (
     <Fragment>
@@ -29,7 +27,9 @@ const Navigation = () => {
           <Logo className='logo' />
         </LogoContainer>
         <NavLinks>
-          <NavLink to='/search'><i className='fas fa-search'></i></NavLink>
+          <NavLink to='/search'>
+            <i className='fas fa-search'></i>
+          </NavLink>
           <NavLink to='/shop'>shop</NavLink>
           {currentUser ? (
             <NavLink as='span' onClick={signOutUser}>

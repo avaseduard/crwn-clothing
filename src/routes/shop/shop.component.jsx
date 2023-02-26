@@ -4,15 +4,20 @@ import { useDispatch } from 'react-redux'
 import CategoriesPreview from '../categories-preview/categories-preview.component'
 import Category from '../category/category.component'
 import ProductPage from '../product-page/product-page.component'
-import { fetchCategoriesStart } from '../../store/categories/category.action'
 import './shop.styles.scss'
+
+import { setCategories } from '../../store/categories/category.reducer'
+import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils'
 
 const Shop = () => {
   const dispatch = useDispatch()
 
-  // Run only once the function that gets our items from the firestore database
   useEffect(() => {
-    dispatch(fetchCategoriesStart())
+    const getCategoriesMap = async () => {
+      const categoriesArray = await getCategoriesAndDocuments('categories')
+      dispatch(setCategories(categoriesArray))
+    }
+    getCategoriesMap()
   }, [])
 
   return (

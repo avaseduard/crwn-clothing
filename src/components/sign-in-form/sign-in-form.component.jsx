@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
 import FormInput from '../form-input/form-input.component'
 import Button, { BUTTON_TYPE_CLASSES } from '../button/button.component'
-import { SignInContainer, ButtonsContainer } from './sign-in-form.styles'
 import {
-  googleSignInStart,
-  emailSignInStart,
-} from '../../store/user/user.action'
+  signInAuthUserWithEmailAndPassword,
+  signInWithGooglePopup,
+} from '../../utils/firebase/firebase.utils'
+import { SignInContainer, ButtonsContainer } from './sign-in-form.styles'
 
 // Create an empty object with the default form values (empty strings)
 const defaultFormFields = {
@@ -16,7 +15,6 @@ const defaultFormFields = {
 
 // Form component with sign up methods
 const SignInForm = () => {
-  const dispatch = useDispatch()
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields
 
@@ -26,7 +24,7 @@ const SignInForm = () => {
   }
 
   const signInWithGoogle = async () => {
-    dispatch(googleSignInStart())
+    await signInWithGooglePopup()
   }
 
   // Submit methods
@@ -34,7 +32,7 @@ const SignInForm = () => {
     event.preventDefault()
     // Create user auth object with the received information from the below function which in turn triggers the google method and returns
     try {
-      dispatch(emailSignInStart(email, password))
+      await signInAuthUserWithEmailAndPassword(email, password)
       // Reset form fields after submit
       resetFormFields()
     } catch (error) {
