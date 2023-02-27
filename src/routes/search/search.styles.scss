@@ -22,7 +22,7 @@
 }
 
 .CardInner {
-  padding: 16px 16px;
+  padding: 16px;
   background-color: #e2e9f4;
   border-radius: var(--border-radius);
 }
@@ -115,8 +115,34 @@ input {
   grid-template-columns: repeat(4, 1fr);
   column-gap: 20px;
   row-gap: 50px;
+}
 
-  @media screen and (max-width: 767px) {
+@media screen and (max-width: 767px) {
+  .CardInner {
+    padding: 5px;
+  }
+
+  .Icon {
+    min-width: 32px;
+    min-height: 32px;
+    margin-right: 5px;
+  }
+
+  label {
+    margin-bottom: 5px;
+  }
+
+  input {
+    padding: 8px 10px;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  .InputContainer {
+    height: 32px;
+  }
+
+  .product-card-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 15px;

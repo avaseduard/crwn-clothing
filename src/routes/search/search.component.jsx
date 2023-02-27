@@ -46,6 +46,8 @@ const Search = () => {
             </div>
             <div className='InputContainer'>
               <input
+                type='text'
+                autoFocus
                 placeholder="buzz us if you can't find what you need..."
                 onChange={event =>
                   setSearch(event.target.value.toLocaleLowerCase())
