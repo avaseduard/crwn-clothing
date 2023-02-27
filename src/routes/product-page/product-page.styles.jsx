@@ -18,7 +18,11 @@ export const ProductImageContainer = styled.div`
   justify-content: center;
 
   img {
-    width: 100%
+    width: 40%;
+
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
   }
 `
 
