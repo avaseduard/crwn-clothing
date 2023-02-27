@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const SignInContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 380px;
 
-  h2{
+  h2 {
     margin: 10 px 0;
   }
 `
@@ -13,4 +13,8 @@ export const SignInContainer = styled.div`
 export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
+
+  @media screen and (max-width: 767px) {
+    width: 80%;
+  }
 `
