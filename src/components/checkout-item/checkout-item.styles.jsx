@@ -18,6 +18,7 @@ export const CheckoutItemContainer = styled.div`
 export const ImageContainer = styled.div`
   width: 23%;
   padding-right: 15px;
+  cursor: pointer;
 
   img {
     width: 100%;
@@ -26,6 +27,7 @@ export const ImageContainer = styled.div`
 `
 
 export const BaseSpan = styled.span`
+  cursor: pointer;
   width: 23%;
 `
 
