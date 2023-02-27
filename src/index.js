@@ -17,7 +17,9 @@ root.render(
       <PersistGate persistor={persistor}>
         <BrowserRouter>
           <Elements stripe={stripePromise}>
+            <div className='main-container'>
             <App />
+            </div>
           </Elements>
         </BrowserRouter>
       </PersistGate>

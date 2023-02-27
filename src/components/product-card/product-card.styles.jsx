@@ -5,6 +5,7 @@ export const Name = styled.span`
 `
 
 export const ProductCardContainer = styled.div`
+  background-color: #ffffff;
   width: 100%;
   display: flex;
   flex-direction: column;
