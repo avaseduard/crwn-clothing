@@ -56,11 +56,12 @@ export const ProductCardContainer = styled.div`
     margin-bottom: 10px;
 
     button {
+      width: 70%;
+      height: 20%;
       top: 150px;
       display: block;
       opacity: 0.5;
-      min-width: unset;
-      padding: 0 10px;
+      padding: 0;
     }
 
     &:hover {
@@ -69,7 +70,15 @@ export const ProductCardContainer = styled.div`
       }
 
       button {
-        opacity: unset;
+        opacity: 0.5;
+      }
+
+      .price {
+        font-weight: unset;
+      }
+  
+      ${Name} {
+        font-weight: unset;
       }
     }
 `

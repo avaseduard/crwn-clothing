@@ -47,10 +47,12 @@ export const InvertedButton = styled(BaseButton)`
   color: black;
   border: 1px solid black;
 
-  &:hover {
-    background-color: black;
-    color: white;
-    border: none;
+  @media (hover: hover) {
+    &:hover {
+      background-color: black;
+      color: white;
+      border: none;
+    }
   }
 `
 
