@@ -6,6 +6,7 @@ import {
 } from '../../store/categories/category.selector'
 import { useSelector } from 'react-redux'
 import Spinner from '../../components/spinner/spinner.component'
+import CategoriesNavigationBar from '../../components/categories-nav-bar/categories-nav-bar.component'
 
 const CategoriesPreview = () => {
   const categoriesMap = useSelector(selectCategoriesMap)
@@ -13,6 +14,8 @@ const CategoriesPreview = () => {
 
   return (
     <Fragment>
+      <CategoriesNavigationBar />
+      <hr />
       {isLoading ? (
         <Spinner />
       ) : (

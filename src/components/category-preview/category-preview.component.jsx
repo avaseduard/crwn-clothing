@@ -11,19 +11,16 @@ const CategoryPreview = ({ title, products }) => {
 
   return (
     <CategoryPreviewContainer>
-      <h2>
+      {/* <h2> */}
         <Title className='title' to={title}>
           {title}
         </Title>
-      </h2>
+      {/* </h2> */}
       <Preview>
         {/* Show only the first four items */}
         {products
           .filter((_, idx) => idx < 4)
           .map(product => (
-            // <Link to={title.concat('/', product.name)}>
-            //   <ProductCard key={product.id} product={product} />
-            // </Link>
             <ProductCard
               onClick={() => navigate(`${title}/${product.name}`)}
               key={product.id}

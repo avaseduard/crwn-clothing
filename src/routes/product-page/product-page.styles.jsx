@@ -1,27 +1,6 @@
 import styled from 'styled-components'
 import Button from '../../components/button/button.component'
 
-export const NavigateToCategory = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 16px;
-
-  @media screen and (max-width: 767px) {
-    justify-content: center;
-    padding: 0px;
-  }
-`
-
-export const LinkToCategory = styled.div`
-  font-weight: bold;
-  cursor: pointer;
-
-  @media screen and (max-width: 767px) {
-    padding: 10px;
-  }
-`
-
 export const ProductName = styled.h1`
   text-align: center;
 `

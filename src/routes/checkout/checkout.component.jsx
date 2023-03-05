@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { useSelector } from 'react-redux'
 import {
   selectCartItems,
@@ -5,39 +6,17 @@ import {
 } from '../../store/cart/cart.selector'
 import CheckoutItem from '../../components/checkout-item/checkout-item.component'
 import PaymentForm from '../../components/payment-form/payment-form.component'
+import CategoriesNavigationBar from '../../components/categories-nav-bar/categories-nav-bar.component'
 
 import './checkout.styles.scss'
-import {
-  LinkToCategory,
-  NavigateToCategory,
-} from '../product-page/product-page.styles'
-import { useNavigate } from 'react-router-dom'
-import { Fragment } from 'react'
 
 const Checkout = () => {
-  const navigate = useNavigate()
   const cartItems = useSelector(selectCartItems)
   const cartTotal = useSelector(selectCartTotal)
 
   return (
     <Fragment>
-      <NavigateToCategory>
-        <LinkToCategory onClick={() => navigate('../../../shop/advanced')}>
-          advanced
-        </LinkToCategory>
-        <LinkToCategory onClick={() => navigate('../../../shop/cinema')}>
-          cinema
-        </LinkToCategory>
-        <LinkToCategory onClick={() => navigate('../../../shop/enterprise')}>
-          enterprise
-        </LinkToCategory>
-        <LinkToCategory onClick={() => navigate('../../../shop/mini')}>
-          mini
-        </LinkToCategory>
-        <LinkToCategory onClick={() => navigate('../../../shop/toys')}>
-          toys
-        </LinkToCategory>
-      </NavigateToCategory>
+      <CategoriesNavigationBar />
       <hr />
       <div className='checkout-container'>
         <div className='checkout-header'>
