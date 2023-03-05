@@ -1,12 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { selectCategoriesMap } from '../../store/categories/category.selector'
-import Button, {
-  BUTTON_TYPE_CLASSES,
-} from '../../components/button/button.component'
+import { BUTTON_TYPE_CLASSES } from '../../components/button/button.component'
 import { addItemToCart } from '../../store/cart/cart.reducer'
 import {
   BuyButton,
+  LinkToCategory,
+  NavigateToCategory,
   ProductBuyingContainer,
   ProductCategory,
   ProductDescription,
@@ -18,6 +18,7 @@ import { useState } from 'react'
 
 const ProductPage = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [buttonText, setButtonText] = useState('add to cart')
 
   // Bring the product database
@@ -48,6 +49,24 @@ const ProductPage = () => {
 
   return (
     <div>
+      <NavigateToCategory>
+        <LinkToCategory onClick={() => navigate('../../../shop/advanced')}>
+          advanced
+        </LinkToCategory>
+        <LinkToCategory onClick={() => navigate('../../../shop/cinema')}>
+          cinema
+        </LinkToCategory>
+        <LinkToCategory onClick={() => navigate('../../../shop/enterprise')}>
+          enterprise
+        </LinkToCategory>
+        <LinkToCategory onClick={() => navigate('../../../shop/mini')}>
+          mini
+        </LinkToCategory>
+        <LinkToCategory onClick={() => navigate('../../../shop/toys')}>
+          toys
+        </LinkToCategory>
+      </NavigateToCategory>
+      <hr />
       <ProductName>{productName} drone</ProductName>
       <ProductCategory>
         <span>{categoryTitle}</span> class
