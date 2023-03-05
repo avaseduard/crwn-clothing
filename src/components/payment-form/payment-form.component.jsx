@@ -51,7 +51,8 @@ const PaymentForm = () => {
     setIsProcessingPayment(false)
 
     if (paymentResult.error) {
-      alert(paymentResult.error)
+      console.log(paymentResult.error)
+      alert('payment unsuccessful')
     } else {
       if (paymentResult.paymentIntent.status === 'succeeded') {
         alert('payment successful')
