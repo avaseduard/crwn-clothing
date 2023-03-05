@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Button from '../../components/button/button.component'
 
 export const ProductName = styled.h1`
   text-align: center;
@@ -29,6 +30,7 @@ export const ProductImageContainer = styled.div`
 export const ProductBuyingContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `
 
 export const ProductPrice = styled.p`
@@ -36,6 +38,13 @@ export const ProductPrice = styled.p`
 
   span {
     font-weight: bold;
+  }
+`
+
+export const BuyButton = styled(Button)`
+  @media screen and (max-width: 767px) {
+    min-width: 110px;
+    padding: 10px;
   }
 `
 

@@ -9,6 +9,7 @@ const ProductCard = ({ product, onClick }) => {
   const { name, price, imageUrl } = product
   const [buttonText, setButtonText] = useState('add to cart')
 
+  // Confirm user when item has been added to cart
   const confirmAddToCart = () => {
     setButtonText('added')
     setTimeout(() => {

@@ -6,6 +6,7 @@ import Button, {
 } from '../../components/button/button.component'
 import { addItemToCart } from '../../store/cart/cart.reducer'
 import {
+  BuyButton,
   ProductBuyingContainer,
   ProductCategory,
   ProductDescription,
@@ -13,9 +14,11 @@ import {
   ProductName,
   ProductPrice,
 } from './product-page.styles.jsx'
+import { useState } from 'react'
 
 const ProductPage = () => {
   const dispatch = useDispatch()
+  const [buttonText, setButtonText] = useState('add to cart')
 
   // Bring the product database
   const categoriesMap = useSelector(selectCategoriesMap)
@@ -35,6 +38,14 @@ const ProductPage = () => {
   // Add item to cart handler
   const addProductToCart = () => dispatch(addItemToCart(product))
 
+  // Confirm user when item has been added to cart
+  const confirmAddToCart = () => {
+    setButtonText('added')
+    setTimeout(() => {
+      setButtonText('add to cart')
+    }, 1500)
+  }
+
   return (
     <div>
       <ProductName>{productName} drone</ProductName>
@@ -48,14 +59,17 @@ const ProductPage = () => {
       <hr />
       <ProductBuyingContainer>
         <ProductPrice>
-          <span>Our price: </span>€ {price}
+          <span>Our price: </span>€{price}
         </ProductPrice>
-        <Button
+        <BuyButton
           buttonType={BUTTON_TYPE_CLASSES.inverted}
-          onClick={addProductToCart}
+          onClick={() => {
+            addProductToCart()
+            confirmAddToCart()
+          }}
         >
-          add to cart
-        </Button>
+          {buttonText}
+        </BuyButton>
       </ProductBuyingContainer>
       <ProductDescription>
         <span>Why you'll love it: </span>
